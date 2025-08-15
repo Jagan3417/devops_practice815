@@ -1,0 +1,36 @@
+name: Create Two Branches with Files
+
+on:
+  workflow_dispatch:  # Run manually from Actions tab
+
+jobs:
+  create-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Need full history to create new branches
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create branch branch-a with file
+        run: |
+          git checkout -b branch-a
+          echo "This is branch A" > fileA.txt
+          git add fileA.txt
+          git commit -m "Add fileA.txt in branch-a"
+          git push origin branch-a
+
+      - name: Create branch branch-b with file
+        run: |
+          git checkout main
+          git checkout -b branch-b
+          echo "This is branch B" > fileB.txt
+          git add fileB.txt
+          git commit -m "Add fileB.txt in branch-b"
+          git push origin branch-b
+
