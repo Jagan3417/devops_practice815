@@ -1,1 +1,1 @@
-Line 1: Change from EC2 side
+ Line 1: Merged change from both EC2 and GitHub
